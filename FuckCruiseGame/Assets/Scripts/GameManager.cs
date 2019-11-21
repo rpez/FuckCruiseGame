@@ -48,6 +48,9 @@ public class GameManager : MonoBehaviour
 
         currentState = GameState.GAME;
 
+        currentTeamMembers = teamMemberScript.GetMembers();
+        currentTeamName = teamNameField.text;
+
         ToggleView("gameview");
         GetNewBodyParts(true);
         UpdateTimer();

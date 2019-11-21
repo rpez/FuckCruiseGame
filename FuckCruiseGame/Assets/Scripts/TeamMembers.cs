@@ -1,15 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class TeamMembers : MonoBehaviour
 {
-    GameObject teamMemberFieldPrefab;
-    List<GameObject> teamMemberFields;
-
     [Header("Drag in editor")]
     public GameObject content;
+    public GameObject teamMemberFieldPrefab;
 
     public List<string> GetMembers()
     {
@@ -17,7 +15,7 @@ public class TeamMembers : MonoBehaviour
 
         for (int i = 0; i < content.transform.childCount; i++)
         {
-            teamMembers.Add(content.transform.GetChild(i).GetComponent<Text>().text);
+            teamMembers.Add(content.transform.GetChild(i).GetComponent<TMP_InputField>().text);
         }
 
         return teamMembers;
@@ -26,6 +24,6 @@ public class TeamMembers : MonoBehaviour
     public void AddTeamMember()
     {
         GameObject prefab = GameObject.Instantiate(teamMemberFieldPrefab);
-        prefab.transform.parent = content.transform;
+        prefab.transform.SetParent(content.transform);
     }
 }
