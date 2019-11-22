@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     string currentTeamName;
     List<string> currentTeamMembers;
+    List<HighScoreObject> currentHighScores;
 
     GameState currentState;
 
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         currentState = GameState.MENU;
+        currentHighScores = DataHandler.LoadHighscores();
     }
 
     public void StartGame()
@@ -50,8 +52,6 @@ public class GameManager : MonoBehaviour
         maxTime = float.Parse(limitString);
         currentTime = maxTime;
         currentScore = 0;
-
-        currentState = GameState.GAME;
 
         currentTeamMembers = teamMemberScript.GetMembers();
         currentTeamName = teamNameField.text;
@@ -73,12 +73,14 @@ public class GameManager : MonoBehaviour
                 gameView.SetActive(false);
                 highscores.SetActive(false);
                 settings.SetActive(false);
+                currentState = GameState.MENU;
                 break;
             case "gameview":
                 mainMenu.SetActive(false);
                 gameView.SetActive(true);
                 highscores.SetActive(false);
                 settings.SetActive(false);
+                currentState = GameState.GAME;
                 break;
             case "highscores":
                 mainMenu.SetActive(false);
@@ -129,11 +131,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void CreateHighscore()
+    public void AddHighscore()
+    {
+        if (currentState == GameState.END)
+        {
+            HighScoreObject highscore = new HighScoreObject(currentTeamName, currentTeamMembers.ToArray(), currentScore);
+            currentHighScores.Add(highscore);
+
+            DataHandler.SaveHighscores(currentHighScores);
+        }
+    }
+
+    public void UpdateHighscores()
+    {
+        List<HighScoreObject> sorted = currentHighScores.OrderBy(x => x.score).ToList();
+        for (int i = 0; i < sorted.Count; i++)
+        {
+            
+        }
+    }
+
+    void CreateHighscoreElement()
     {
 
     }
-    
+
     void FixedUpdate()
     {
         if (currentState == GameState.GAME)
