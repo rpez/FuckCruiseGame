@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     GameState currentState;
 
-    List<string> currentBodyParts;
+    List<string> bodyPartsInUse;
     float currentTime;
     int currentScore;
     string currentBodyPart1;
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        currentBodyParts = basicParts;
+        bodyPartsInUse = basicParts;
         currentTime = maxTime;
         currentScore = 0;
 
@@ -91,16 +91,24 @@ public class GameManager : MonoBehaviour
 
     public void GetNewBodyParts(bool skip)
     {
-        int randomNum1 = Random.Range(0, currentTeamMembers.Count);
-        int randomNum2 = Random.Range(0, randomNum1);
-        int randomNum3 = Random.Range(randomNum2, currentTeamMembers.Count);
-        int coinFlip = Random.Range(0, 2);
+        System.Random rand = new System.Random();
 
-        string player1 = currentTeamMembers[randomNum1];
-        int rand = coinFlip == 0 ? randomNum2 : randomNum3;
-        string player2 = currentTeamMembers[rand];
+        currentTeamMember1 = currentTeamMembers[rand.Next(0, currentTeamMembers.Count)];
+        do
+        {
+            currentTeamMember2 = currentTeamMembers[rand.Next(0, currentTeamMembers.Count)];
+        } while (currentTeamMember1 == currentTeamMember2);
 
-        if (!skip) currentScore++;
+        name1.text = currentTeamMember1;
+        name2.text = currentTeamMember2;
+        currentBodyPart1 = bodyPartsInUse[rand.Next(0, bodyPartsInUse.Count)];
+        currentBodyPart2 = bodyPartsInUse[rand.Next(0, bodyPartsInUse.Count)];
+        bodyPart1.text = currentBodyPart1;
+        bodyPart2.text = currentBodyPart2;
+
+        if (!skip && currentState == GameState.GAME) currentScore++;
+
+        score.text = currentScore.ToString();
     }
 
     void UpdateTimer()

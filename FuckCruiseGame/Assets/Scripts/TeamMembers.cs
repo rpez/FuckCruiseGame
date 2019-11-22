@@ -15,7 +15,7 @@ public class TeamMembers : MonoBehaviour
 
         for (int i = 0; i < content.transform.childCount; i++)
         {
-            teamMembers.Add(content.transform.GetChild(i).GetComponent<TMP_InputField>().text);
+            teamMembers.Add(content.transform.GetChild(i).gameObject.GetComponent<TMP_InputField>().text);
         }
 
         return teamMembers;
