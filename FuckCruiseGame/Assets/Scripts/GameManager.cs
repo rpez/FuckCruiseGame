@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timer, score, name1, name2, bodyPart1, bodyPart2;
     public TMP_InputField teamNameField;
     public TeamMembers teamMemberScript;
+    public TMP_InputField timeLimitField;
 
     void Start()
     {
@@ -44,6 +45,9 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         bodyPartsInUse = basicParts;
+        TMP_InputField field = timeLimitField.GetComponent<TMP_InputField>();
+        string limitString = field.text != "" ? field.text : "30";
+        maxTime = float.Parse(limitString);
         currentTime = maxTime;
         currentScore = 0;
 
