@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateHighscores()
     {
-        List<HighScoreObject> sorted = currentHighScores.OrderBy(x => x.score).ToList();
+        List<HighScoreObject> sorted = currentHighScores.OrderBy(x => -x.score).ToList();
         highscoresScript.UpdateHighscoreView(sorted);
     }
 

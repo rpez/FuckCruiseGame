@@ -11,8 +11,6 @@ public static class DataHandler
         string path = Application.persistentDataPath + "/highscores.txt";
         string json = JsonUtility.ToJson(list);
 
-        Debug.Log(json);
-
         File.WriteAllText(path, json);
     }
 
@@ -24,7 +22,7 @@ public static class DataHandler
 
         if (File.Exists(path))
         {
-            string str = File.ReadAllText(Application.persistentDataPath + "/highscores.txt");
+            string str = File.ReadAllText(path);
             list = JsonUtility.FromJson<HighScoreList>(str);
 
             foreach (HighScoreObject score in list.highscores)
