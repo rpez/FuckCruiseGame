@@ -35,13 +35,15 @@ public class GameManager : MonoBehaviour
     public GameObject settings;
     public TextMeshProUGUI timer, score, name1, name2, bodyPart1, bodyPart2;
     public TMP_InputField teamNameField;
-    public TeamMembers teamMemberScript;
     public TMP_InputField timeLimitField;
+    public TeamMembers teamMemberScript;
+    public Highscores highscoresScript;
 
     void Start()
     {
         currentState = GameState.MENU;
         currentHighScores = DataHandler.LoadHighscores();
+        UpdateHighscores();
     }
 
     public void StartGame()
@@ -139,21 +141,14 @@ public class GameManager : MonoBehaviour
             currentHighScores.Add(highscore);
 
             DataHandler.SaveHighscores(currentHighScores);
+            UpdateHighscores();
         }
     }
 
     public void UpdateHighscores()
     {
         List<HighScoreObject> sorted = currentHighScores.OrderBy(x => x.score).ToList();
-        for (int i = 0; i < sorted.Count; i++)
-        {
-            
-        }
-    }
-
-    void CreateHighscoreElement()
-    {
-
+        highscoresScript.UpdateHighscoreView(sorted);
     }
 
     void FixedUpdate()

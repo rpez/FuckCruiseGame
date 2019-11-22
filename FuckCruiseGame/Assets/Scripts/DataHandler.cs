@@ -5,17 +5,33 @@ using System.IO;
 
 public static class DataHandler
 {
-    public static void SaveHighscores(List<HighScoreObject> highScores)
+    public static void SaveHighscores(List<HighScoreObject> highscores)
     {
-        string json = JsonUtility.ToJson(highScores);
+        HighScoreList list = new HighScoreList(highscores);
+        string path = Application.persistentDataPath + "/highscores.txt";
+        string json = JsonUtility.ToJson(list);
 
-        File.WriteAllText(Application.persistentDataPath + "/highscores.txt", json);
+        Debug.Log(json);
+
+        File.WriteAllText(path, json);
     }
 
     public static List<HighScoreObject> LoadHighscores()
     {
-        string str = File.ReadAllText(Application.persistentDataPath + "/highscores.txt");
-        List<HighScoreObject> highscores = JsonUtility.FromJson<List<HighScoreObject>>(str);
+        HighScoreList list;
+        List<HighScoreObject> highscores = new List<HighScoreObject>();
+        string path = Application.persistentDataPath + "/highscores.txt";
+
+        if (File.Exists(path))
+        {
+            string str = File.ReadAllText(Application.persistentDataPath + "/highscores.txt");
+            list = JsonUtility.FromJson<HighScoreList>(str);
+
+            foreach (HighScoreObject score in list.highscores)
+            {
+                highscores.Add(score);
+            }
+        }
 
         return highscores;
     }
