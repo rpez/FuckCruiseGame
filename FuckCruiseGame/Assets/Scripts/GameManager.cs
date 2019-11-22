@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -51,9 +52,12 @@ public class GameManager : MonoBehaviour
         currentTeamMembers = teamMemberScript.GetMembers();
         currentTeamName = teamNameField.text;
 
-        ToggleView("gameview");
-        GetNewBodyParts(true);
-        UpdateTimer();
+        if (currentTeamMembers.Count == currentTeamMembers.Distinct().Count())
+        {
+            ToggleView("gameview");
+            GetNewBodyParts(true);
+            UpdateTimer();
+        }
     }
 
     public void ToggleView(string view)
