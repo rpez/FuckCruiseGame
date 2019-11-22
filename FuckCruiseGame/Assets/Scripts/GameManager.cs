@@ -124,6 +124,11 @@ public class GameManager : MonoBehaviour
             timer.text = timeString.Substring(0, Mathf.Min(timeString.Length, 4));
         }
     }
+
+    void CreateHighscore()
+    {
+
+    }
     
     void FixedUpdate()
     {
