@@ -8,8 +8,24 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     enum GameState { MENU, GAME, END }
-    List<string> basicParts = new List<string>(new string[] { "Pää", "Oikea Käsi", "Vasen Käsi", "Oikea Jalka", "Vasen Jalka", "Selkä", "Nenä", "Hiukset" });
-    List<string> extraParts = new List<string>(new string[] { "Peppu" });
+    List<string> basicParts = new List<string>(new string[] {
+        "Pää",
+        "Oikea kämmen",
+        "Vasen kämmen",
+        "Oikea Jalkaterä",
+        "Vasen Jalkaterä",
+        "Selkä",
+        "Otsa",
+        "Hiukset",
+        "Peppu",
+        "Maha",
+        "Vasen Olkapää",
+        "Oikea olkapää",
+        "Vasen Polvi",
+        "Oikea Polvi",
+        "Oikea Kyynärpää",
+        "Vasen Kyynärpää"
+    });
 
     string currentTeamName;
     List<string> currentTeamMembers;
